@@ -1,0 +1,54 @@
+#!/bin/env rc
+PKG_DIR = $HOME/dev
+pwd = `{pwd}
+
+fn usage {
+	echo usage: $0 '<command>' [options] [packages]>[1=2]
+	exit 1
+}
+
+fn get_handler {
+	for(pkg in $pkgs){
+		bn = `{basename $pkg}
+		if(test -d $PKG_DIR/$bn){
+			cd $PKG_DIR/$bn
+			git pull
+		}
+		if not {
+			cd $PKG_DIR
+			git clone $pkg
+		}
+		cd $"pwd
+	}
+}
+
+fn install_handler {
+	for(pkg in $pkgs){
+		bn = `{basename $pkg}
+		if(test -d $PKG_DIR/$bn){
+			cd $PKG_DIR/$bn
+			git pull || exit 1
+		}
+		if not {
+			cd $PKG_DIR/$bn \
+			&& git clone $pkg || exit 1
+		}
+		mk install
+		cd $pwd
+	}
+}
+
+com = $1
+shift
+
+pkgs = $*
+
+switch($com){
+	case get
+		get_handler
+	case install
+		install_handler
+	case *
+		usage
+}
+
