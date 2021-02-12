@@ -30,8 +30,9 @@ fn install_handler {
 			git pull || exit 1
 		}
 		if not {
-			cd $PKG_DIR/$bn \
+			cd $PKG_DIR/ \
 			&& git clone $pkg || exit 1
+			cd $PKG_DIR/$bn
 		}
 		mk install
 		cd $pwd

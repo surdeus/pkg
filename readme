@@ -1,0 +1,14 @@
+pkg
+===
+
+Package system based on Git, mk and C compilers.
+
+Packages structure
+==================
+
+* mkfile - making file;
+* mkconfig - making configuration file;
+* shr - directory with shared files;
+* app - application specific files to be saved into separated directory;
+* exe - executable files.
+
