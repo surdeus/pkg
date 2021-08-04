@@ -1,14 +1,23 @@
 pkg
 ===
 
-Package system based on Git, mk and C compilers.
+Git-based package system. 
 
-Packages structure
+Package structure
 ==================
-
-* mkfile - making file;
-* mkconfig - making configuration file;
-* shr - directory with shared files;
-* app - application specific files to be saved into separated directory;
-* exe - executable files.
+* $dev - packages directory
+  * package_name - package directory
+    * shr - directory with shared files
+    * app - application specific files to be saved into separated directory
+    * exe - executable files directory
+    * dep - dependencies directory
+      * pkg
+      * Linux
+        * void
+        * debian
+        * arch
+      * OpenBSD
+      * FreeBSD
+      * NetBSD
+    * build - executable file to run before installation (it should set up shr, app and exe dirs)
 

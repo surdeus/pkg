@@ -14,23 +14,24 @@ Structure
 
 Directories' intended purpose: ("#u" stands for user home directory aka $HOME or /home/$USER)
 
-* #u/exe - executable files including scripts and binary;
-* #u/app - specific application files that it only uses;
-* #u/shr - shared files, it doesn't matter they depend on platform or not;
-  * #u/shr/fnt - font files. The format is supposed to be recognized with it's extension;
-  * #u/shr/man - manual files in standard man-roff format.
-  * #u/shr/obj - shared object and static object files, the format is also recognized by extension; (.so and .a)
-  * #u/shr/img - shared image files.
+* #u/exe - executable files including scripts and binary
+* #u/app - specific application files that it only uses
+* #u/shr - shared files, it doesn't matter they depend on platform or not
+  * #u/shr/fnt - font files. The format is supposed to be recognized with it's extension
+  * #u/shr/man - manual files in standard man-roff format
+  * #u/shr/obj - shared object and static object files, the format is also recognized by extension (.so and .a)
+  * #u/shr/img - shared image files
   * ...
-* #u/lib - user configuration files supposed to be configured by hand;
+* #u/lib - user configuration files supposed to be configured by hand
 
 User's files directories:
-* #u/vid - video files;
-* #u/img - image files;
-* #u/tmpl - template files;
-* #u/doc - document files;
-  * #u/doc/lib - books. (library)
-* #u/snd - audio files. (sound)
-* #u/env - environment settings files.
-* #u/dev - user development files and packages. (packages are supposed to be developable)
-* #u/tmp - user temporary files.
+* #u/vid - video files
+* #u/img - image files
+* #u/tmpl - template files
+* #u/doc - document files
+  * #u/doc/lib - books (library)
+* #u/snd - audio files (sound)
+* #u/env - environment settings files
+* #u/dev - user development files and packages (packages are supposed to be developable)
+* #u/tmp - user temporary files
+
