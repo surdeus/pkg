@@ -19,5 +19,5 @@ Package structure
       * OpenBSD
       * FreeBSD
       * NetBSD
-    * build - executable file to run before installation (it should set up shr, app and exe dirs)
+    * install - executable file to run to install (it should set up shr, app and exe dirs)
 

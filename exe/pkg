@@ -34,7 +34,7 @@ fn install_handler {
 			&& git clone $pkg || exit 1
 			cd $PKG_DIR/$bn
 		}
-		mk install
+		./install
 		cd $pwd
 	}
 }

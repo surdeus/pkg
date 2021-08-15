@@ -1,2 +1,0 @@
-<mkconfig
-<$MKINCDIR/script
