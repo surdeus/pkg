@@ -1,11 +1,35 @@
 #!/bin/env rc
+# Package system.
+
+if(test -z $PARENT)
+	PARENT = ''
+
 PKG_DIR = $HOME/dev
 pwd = `{pwd}
+
+
+KERNEL = `{uname}
+OS_DEP_FILE_PATH = ''
+
+switch($KERNEL){
+case Linux
+	switch($DISTRO){
+	case void
+		install_pkg = (sup xi)
+	}
+	OS_DEP_FILE_PATH = dep/$KERNEL/$DISTRO
+case OpenBSD
+	OS_DEP_FILE_PATH = dep/$KERNEL
+case *
+	echo $0: $KERNEL: the OS is not supported yet
+	exit 1
+}
 
 fn usage {
 	echo usage: $0 '<command>' [options] [packages]>[1=2]
 	exit 1
 }
+
 
 fn get_handler {
 	for(pkg in $pkgs){
@@ -24,18 +48,49 @@ fn get_handler {
 
 fn install_handler {
 	for(pkg in $pkgs){
-		bn = `{basename $pkg}
-		if(test -d $PKG_DIR/$bn){
-			cd $PKG_DIR/$bn
-			git pull || exit 1
+		if(! ~ $pkg $INSTALLED_PACKAGES){
+			bn = `{basename $"pkg}
+			
+			echo
+			echo '<===' $pkg
+			if(test -d $PKG_DIR/$bn){
+				cd $PKG_DIR/$bn
+				git pull || exit 1
+			}
+			if not {
+				cd $PKG_DIR/ \
+				&& git clone $pkg || exit 1
+				cd $PKG_DIR/$bn
+			}
+
+			# First OS dependencies.
+			if(test -r $OS_DEP_FILE_PATH){
+				OS_DEP_COM = ($install_pkg `{cat $OS_DEP_FILE_PATH})
+				echo $OS_DEP_COM
+				$OS_DEP_COM
+			}
+
+			# Then git deps.
+			if(test -r dep/git){
+				PREV_PARENT = $PARENT
+				PARENT = $pkg
+				pkg install `{cat dep/git}
+				INSTALLED_PACKAGES = ($INSTALLED_PACKAGES `{cat dep/git})
+				PARENT = $PREV_PARENT
+			}
+
+			# Package itself.
+			echo
+			echo $pkg '===>' $PARENT
+			if(test -r ./install){
+				./install
+			}
+			if not {
+				echo No install file
+			}
+
+			cd $pwd
 		}
-		if not {
-			cd $PKG_DIR/ \
-			&& git clone $pkg || exit 1
-			cd $PKG_DIR/$bn
-		}
-		./install
-		cd $pwd
 	}
 }
 
