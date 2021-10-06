@@ -1,0 +1,23 @@
+#!/bin/env rc
+
+PKG_FILE = $HOME/dev/pkg/pkgs.tsv
+
+if(test -z $DISTRO)
+	DISTRO = ''
+SYS_NAME = `{uname}^$DISTRO
+
+names = `{sed 1q $PKG_FILE}
+colnum = -1
+for(i in `{seq $#names}){
+	if(~ $SYS_NAME $names($i))
+		colnum = $i
+}
+
+oifs = $ifs
+ifs = ''
+pattern = `{echo -n '^' && goblin echo -n -d '	\|^' $*
+	&& echo -n '	'}
+ifs = $oifs
+
+grep $"pattern $PKG_FILE | cut -f$colnum
+

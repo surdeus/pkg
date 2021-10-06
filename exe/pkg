@@ -4,26 +4,22 @@
 if(test -z $PARENT)
 	PARENT = ''
 
-PKG_DIR = $HOME/dev
-pwd = `{pwd}
+if(test -z $DISTRO)
+	DISTRO = ''
+SYS_NAME = `{uname}^$DISTRO
 
+pkg_install = `{
+	cat $dev/pkg/installers.tsv | grep '^'^$SYS_NAME^'	' \
+		| cut -f2
+}
 
-KERNEL = `{uname}
-OS_DEP_FILE_PATH = ''
-
-switch($KERNEL){
-case Linux
-	switch($DISTRO){
-	case void
-		install_pkg = (sup xi)
-	}
-	OS_DEP_FILE_PATH = dep/$KERNEL/$DISTRO
-case OpenBSD
-	OS_DEP_FILE_PATH = dep/$KERNEL
-case *
-	echo $0: $KERNEL: the OS is not supported yet
+if(test -z $"pkg_install){
+	echo $0: could not guess your distro/os out >[1=2]
 	exit 1
 }
+
+PKG_DIR = $HOME/dev
+pwd = `{pwd}
 
 fn usage {
 	echo usage: $0 '<command>' [options] [packages]>[1=2]
@@ -64,10 +60,8 @@ fn install_handler {
 			}
 
 			# First OS dependencies.
-			if(test -r $OS_DEP_FILE_PATH){
-				OS_DEP_COM = ($install_pkg `{cat $OS_DEP_FILE_PATH})
-				echo $OS_DEP_COM
-				$OS_DEP_COM
+			if(test -r dep/os){
+				$pkg_install `{pkgname `{cat dep/os}}
 			}
 
 			# Then git deps.
