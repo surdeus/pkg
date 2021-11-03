@@ -1,6 +1,6 @@
 #!/bin/env rc
 
-PKG_FILE = $HOME/dev/pkg/pkgs.tsv
+PKG_FILE = $HOME/app/pkg/pkgs.tsv
 
 if(test -z $DISTRO)
 	DISTRO = ''

@@ -9,7 +9,7 @@ if(test -z $DISTRO)
 SYS_NAME = `{uname}^$DISTRO
 
 pkg_install = `{
-	cat $dev/pkg/installers.tsv | grep '^'^$SYS_NAME^'	' \
+	cat $HOME/app/pkg/installers.tsv | grep '^'^$SYS_NAME^'	' \
 		| cut -f2
 }
 
