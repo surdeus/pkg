@@ -1,6 +1,6 @@
-pkg	Linux/Void	Linux/Debian
-base-dev	base-devel	base-dev
-x11-dev	libX11-devel	libX11-dev
-xinerama-dev	libXinerama-devel	libXinerama-dev
-xft-dev	libXft-devel	libXft-dev
+pkg	Linux/Void	Linux/Debian Linux/Arch
+base-dev	base-devel	base-dev	base-dev
+x11-dev	libX11-devel	libX11-dev	libx11-dev
+xinerama-dev	libXinerama-devel	libXinerama-dev libxinerama-dev
+xft-dev	libXft-devel	libXft-dev	libxft-dev
 
