@@ -9,7 +9,7 @@ if(test -z $DISTRO)
 SYS_NAME = `{uname}^$DISTRO
 
 pkg_install = `{
-	cat $HOME/app/pkg/installers.tsv | grep '^'^$SYS_NAME^'	' \
+	 pp $HOME/app/pkg/installers.tsv | grep '^'^$SYS_NAME^'	' \
 		| cut -f2
 }
 
@@ -61,15 +61,15 @@ fn install_handler {
 
 			# First OS dependencies.
 			if(test -r dep/os){
-				$pkg_install `{pkgname `{cat dep/os}}
+				$pkg_install `{pkgname `{pp dep/os}}
 			}
 
 			# Then git deps.
 			if(test -r dep/git){
 				PREV_PARENT = $PARENT
 				PARENT = $pkg
-				pkg install `{cat dep/git}
-				INSTALLED_PACKAGES = ($INSTALLED_PACKAGES `{cat dep/git})
+				pkg install `{pp dep/git}
+				INSTALLED_PACKAGES = ($INSTALLED_PACKAGES `{pp dep/git})
 				PARENT = $PREV_PARENT
 			}
 
