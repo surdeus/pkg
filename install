@@ -1,7 +1,21 @@
 #!/bin/sh
 
+# Dependencies
+oldpwd=`pwd`
+git clone $GIT/obj9 $DEV/obj9
+git clone $GIT/mk $DEV/mk
+git clone $GIT/9yacc $DEV/9yacc
+git clone $GIT/9rc $DEV/9rc
+cd $DEV/obj9 && ./install
+cd $DEV/mk && ./install
+cd $DEV/9yacc && ./install
+cd $DEV/9rc && ./install
+cd $oldpwd
+
 mkdir -p $HOME/app/pkg
 cp -f installers.tsv pkgs.tsv $HOME/app/pkg
+
 cp -f exe/pkg exe/pkgname $HOME/exe/
 chmod 0755 $HOME/exe/pkg $HOME/exe/pkgname
+
 
