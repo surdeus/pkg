@@ -2,24 +2,28 @@
 
 app=$HOME/app
 dev=$HOME/dev
+
+deps="obj9 mk 9yacc 9rc pp"
 oldpwd=`pwd`
 
 # Dependencies
 cd $dev
-git clone $GIT/obj9 $dev/obj9
-git clone $GIT/mk $dev/mk
-git clone $GIT/9yacc $dev/9yacc
-git clone $GIT/9rc $dev/9rc
-cd $dev/obj9 && ./install
-cd $dev/mk && ./install
-cd $dev/9yacc && ./install
-cd $dev/9rc && ./install
+for i in $deps ; do
+	git clone $GIT/$i 
+	stat=$?
+	cd $i
+	if test stat != 0 ; then
+		git pull
+	fi
+	test -x install && ./install
+	cd ..
+done
+
 cd $oldpwd
 
-mkdir -p $APP//pkg
-cp -f installers.tsv pkgs.tsv $APP/pkg
+mkdir -p $app/pkg
+cp -f installers.tsv pkgs.tsv $app/pkg
 
 cp -f exe/pkg exe/pkgname $HOME/exe/
 chmod 0755 $HOME/exe/pkg $HOME/exe/pkgname
-
 
