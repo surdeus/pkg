@@ -1,2 +1,3 @@
 Linux/Void	sup xi -S
-Linux/Debian	sudo apt install
+Linux/Debian	sup apt install
+Linux/Arch	sup pacman -S

@@ -1,7 +1,29 @@
 #!/bin/sh
 
-mkdir -p $HOME/app/pkg
-cp -f installers.tsv pkgs.tsv $HOME/app/pkg
+app=$HOME/app
+dev=$HOME/dev
+
+deps="obj9 mk 9yacc 9rc pp"
+oldpwd=`pwd`
+
+# Dependencies
+cd $dev
+for i in $deps ; do
+	git clone $GIT/$i 
+	stat=$?
+	cd $i
+	if test stat != 0 ; then
+		git pull
+	fi
+	test -x install && ./install
+	cd ..
+done
+
+cd $oldpwd
+
+mkdir -p $app/pkg
+cp -f installers.tsv pkgs.tsv $app/pkg
+
 cp -f exe/pkg exe/pkgname $HOME/exe/
 chmod 0755 $HOME/exe/pkg $HOME/exe/pkgname
 
