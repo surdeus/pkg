@@ -1,0 +1,10 @@
+#!/bin/sh
+
+git pull $GIT/pkg
+
+mkdir -p $app/pkg
+cp -f installers.tsv pkgs.tsv $app/pkg
+
+cp -f exe/pkg exe/pkgname $HOME/exe/
+chmod 0755 $HOME/exe/pkg $HOME/exe/pkgname
+
