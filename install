@@ -3,7 +3,7 @@
 app=$HOME/app
 dev=$HOME/dev
 
-deps="obj9 mk 9yacc 9rc pp"
+deps="goblin obj9 mk 9yacc 9rc pp"
 oldpwd=`pwd`
 
 # Dependencies
