@@ -6,4 +6,4 @@ xft-dev	libXft-devel	libXft-dev	libxft-dev
 webkit2gtk-dev	webkit2gtk-devel	webkit2gtk-dev	webkit2gtk-dev
 gcr-dev	gcr-devel	gcr-dev	gcr-dev
 libxmu-dev	libXmu-devel	libXmu-dev	libXmu-dev
-
+rsync	rsync	rsync	rsync
