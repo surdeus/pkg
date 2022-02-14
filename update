@@ -2,8 +2,8 @@
 
 git pull $GIT/pkg
 
-mkdir -p $app/pkg
-cp -f installers.tsv pkgs.tsv $app/pkg
+mkdir -p $HOME/app/pkg
+cp -f installers.tsv pkgs.tsv $HOME/app/pkg
 
 cp -f exe/pkg exe/pkgname $HOME/exe/
 chmod 0755 $HOME/exe/pkg $HOME/exe/pkgname
