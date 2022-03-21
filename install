@@ -3,7 +3,7 @@
 app=$HOME/app
 dev=$HOME/dev
 
-deps="obj9 mk 9yacc 9rc pp"
+deps="goblin obj9 mk 9yacc 9rc pp"
 oldpwd=`pwd`
 
 # Dependencies
@@ -12,7 +12,7 @@ for i in $deps ; do
 	git clone $GIT/$i 
 	stat=$?
 	cd $i
-	if test stat != 0 ; then
+	if test $stat != 0 ; then
 		git pull
 	fi
 	test -x install && ./install
@@ -21,9 +21,5 @@ done
 
 cd $oldpwd
 
-mkdir -p $app/pkg
-cp -f installers.tsv pkgs.tsv $app/pkg
-
-cp -f exe/pkg exe/pkgname $HOME/exe/
-chmod 0755 $HOME/exe/pkg $HOME/exe/pkgname
+./update
 
