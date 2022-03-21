@@ -61,7 +61,7 @@ fn install_handler {
 
 			# First OS dependencies.
 			if(test -r dep/os){
-				$pkg_install `{pkgname `{pp dep/os}}
+				yes | $pkg_install `{pkgname `{pp dep/os}}
 			}
 
 			# Then git deps.
