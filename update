@@ -1,10 +1,14 @@
-#!/bin/sh
+#!/bin/env rc
 
 git pull $GIT/pkg
+for(v in exe/*){
+	cp -f $v $HOME/exe/
+	chmod 0755 $HOME/exe/`{basename $v}
+}
 
-mkdir -p $HOME/app/pkg
-cp -f installers.tsv pkgs.tsv $HOME/app/pkg
-
-cp -f exe/pkg exe/pkgname $HOME/exe/
-chmod 0755 $HOME/exe/pkg $HOME/exe/pkgname
+APPDIR = $HOME/app/pkg
+mkdir -p $APPDIR
+for(v in app/*){
+	cp -rf $v $APPDIR/
+}
 

@@ -1,0 +1,48 @@
+#!/bin/env rc
+# Cross distro package system.
+
+if(test -z $PARENT)
+	PARENT = ''
+
+if(test -z $DISTRO)
+	DISTRO = ''
+SYS_NAME = `{uname}^$DISTRO
+
+APPDIR = $HOME/app/pkg/
+
+pkg_install = `{
+	 pp $APPDIR/installers.tsv | grep '^'^$SYS_NAME^'	' \
+		| cut -f2
+}
+
+if(test -z $"pkg_install){
+	echo $0: could not guess your distro/os out >[1=2]
+	exit 1
+}
+
+pwd = `{pwd}
+
+fn usage {
+	echo usage: $0 '<command>' [options] [packages]>[1=2]
+	exit 1
+}
+
+fn install-handler {
+	realpkgs = `{pkgsysname $pkgs}
+	if(test $#realpkgs '=' 0)
+		realpkgs = $pkgs
+	yes | $pkg_install $realpkgs
+}
+
+com = $1
+shift
+
+pkgs = $*
+
+switch($com){
+	case install
+		install-handler
+	case *
+		usage
+}
+
